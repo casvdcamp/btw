@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZZP Factuuroverzicht</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <span class="brand-mark">k.</span>
+          <span>kasboek<br /><small>voor zzp'ers</small></span>
+        </div>
+        <nav class="sidebar-nav" aria-label="Hoofdnavigatie">
+          <button class="nav-button active" type="button" data-page-target="invoices" aria-current="page">
+            <span>↗</span> Facturen
+          </button>
+          <button class="nav-button" type="button" data-page-target="expenses">
+            <span>↙</span> Btw terugvragen
+          </button>
+          <button class="nav-button" type="button" data-page-target="overview">
+            <span>▦</span> Overzicht
+          </button>
+        </nav>
+        <div class="sidebar-note">Je gegevens worden lokaal op dit apparaat bewaard.</div>
+      </aside>
+
+      <main class="app-main">
+        <div class="container">
+          <section class="page-panel active" id="page-invoices">
+            <header class="page-header">
+              <div class="eyebrow">inkomsten</div>
+              <h1>Wat van deze factuur is écht van jou.</h1>
+              <p>
+                Upload een factuur. De btw en een deel voor de inkomstenbelasting
+                worden apart gelegd en toegevoegd aan je overzicht.
+              </p>
+            </header>
+
+            <section class="card upload-card">
+              <div id="uploadEmpty" class="upload-area">
+                <label class="upload-label" for="invoiceInput">
+                  <span class="upload-icon">⇪</span>
+                  <span class="upload-text">
+                    Sleep een foto of screenshot van je factuur hierheen,<br />
+                    of klik om te kiezen
+                  </span>
+                </label>
+                <input id="invoiceInput" class="file-input" type="file" accept="image/*" />
+              </div>
+
+              <div id="uploadPreview" class="upload-preview hidden">
+                <div class="preview-row">
+                  <img id="previewImage" class="preview-image" alt="Geüploade factuur" />
+                  <div class="preview-meta">
+                    <div id="previewTitle" class="preview-title">Factuur wordt gelezen…</div>
+                    <div id="previewSubtext" class="preview-subtext"></div>
+                  </div>
+                  <button id="resetButton" class="icon-button" type="button" aria-label="Opnieuw beginnen">↺</button>
+                </div>
+                <div id="loadingNotice" class="status-notice hidden">
+                  <span class="spinner">◌</span>
+                  Bedragen worden herkend
+                </div>
+                <div id="errorBox" class="error-box hidden"></div>
+              </div>
+
+              <div id="resultSummary" class="result-summary hidden">
+                <div class="summary-section">
+                  <div class="summary-row"><span>Netto bedrag</span><strong id="nettoValue">€ 0,00</strong></div>
+                  <div class="summary-row"><span>Btw <span id="btwLabel">21%</span></span><strong id="btwValue">€ 0,00</strong></div>
+                  <div class="summary-row total-row"><span>Totaal ontvangen</span><strong id="totaalValue">€ 0,00</strong></div>
+                </div>
+                <div class="ib-section">
+                  <div class="ib-header">
+                    <span>Reservering inkomstenbelasting</span>
+                    <span id="ibLabel">30% van netto</span>
+                  </div>
+                  <div class="ib-options" role="group" aria-label="Kies een indicatief percentage voor inkomstenbelasting">
+                    <button class="ib-option" type="button" data-ib-percent="20" aria-pressed="false">
+                      <strong>20%</strong>
+                      <span>Lager inkomen<br />tot € 25.000</span>
+                    </button>
+                    <button class="ib-option active" type="button" data-ib-percent="30" aria-pressed="true">
+                      <strong>30%</strong>
+                      <span>Gemiddeld inkomen<br />€ 25.000 tot € 50.000</span>
+                    </button>
+                    <button class="ib-option" type="button" data-ib-percent="40" aria-pressed="false">
+                      <strong>40%</strong>
+                      <span>Hoog inkomen<br />hoger dan € 50.000</span>
+                    </button>
+                  </div>
+                  <p>
+                    Dit percentage hangt af van je totale jaarinkomen en aftrekposten — instelbare indicatie, geen belastingadvies. Al toegevoegde facturen houden het percentage dat gold toen je ze opsloeg.
+                  </p>
+                </div>
+                <div class="split-grid">
+                  <div class="split-box split-box-left">
+                    <div class="split-label">opzij zetten</div>
+                    <div id="opzijValue" class="split-value">€ 0,00</div>
+                    <div class="split-detail">btw + ib-reservering</div>
+                  </div>
+                  <div class="split-box split-box-right">
+                    <div class="split-label">vrij te besteden</div>
+                    <div id="vrijValue" class="split-value">€ 0,00</div>
+                    <div class="split-detail">van deze factuur</div>
+                  </div>
+                </div>
+                <div class="save-box">
+                  <div id="saveStateSuccess" class="save-success hidden"><span>✓</span> Opgeslagen in overzicht</div>
+                  <button id="saveButton" type="button" class="primary-button"><span>💾</span> Opslaan in overzicht</button>
+                  <p id="saveHint" class="save-hint">Zet eerst de reservering hierboven goed — pas na opslaan telt hij mee.</p>
+                </div>
+              </div>
+            </section>
+            <div id="retryBox" class="retry-box hidden">
+              <button id="retryButton" type="button" class="text-button">Andere factuur proberen</button>
+            </div>
+          </section>
+
+          <section class="page-panel" id="page-expenses" hidden>
+            <header class="page-header">
+              <div class="eyebrow">zakelijke uitgaven</div>
+              <h1>Btw terugvragen.</h1>
+              <p>Upload een bon of factuur van je zakelijke kosten. De bon wordt uitgelezen en de btw automatisch berekend — controleer de uitkomst en sla hem op.</p>
+            </header>
+            <section class="card upload-card">
+              <div id="expenseUploadEmpty" class="upload-area">
+                <label class="upload-label" for="expenseInput">
+                  <span class="upload-icon">⇪</span>
+                  <span class="upload-text">Sleep een foto of pdf van je bon hierheen,<br />of klik om te kiezen</span>
+                </label>
+                <input id="expenseInput" class="file-input" type="file" accept="image/*,.pdf,application/pdf" />
+              </div>
+              <div id="expenseUploadPreview" class="upload-preview hidden">
+                <div class="preview-row">
+                  <img id="expensePreviewImage" class="preview-image hidden" alt="Voorbeeld van de geüploade bon" />
+                  <span id="expenseFileIcon" class="file-icon">PDF</span>
+                  <div class="preview-meta">
+                    <div id="expensePreviewTitle" class="preview-title">Bon wordt gelezen…</div>
+                    <div id="expensePreviewSubtext" class="preview-subtext"></div>
+                  </div>
+                  <button id="expenseResetButton" class="icon-button" type="button" aria-label="Andere bon kiezen">↺</button>
+                </div>
+                <div id="expenseLoadingNotice" class="status-notice hidden">
+                  <span class="spinner">◌</span>
+                  <span id="expenseProgressText">Bon wordt uitgelezen en bedragen worden berekend</span>
+                </div>
+                <div id="expenseErrorBox" class="error-box hidden"></div>
+              </div>
+              <div id="expenseEditor" class="expense-editor hidden">
+                <div class="expense-calculation">
+                  <div class="calculation-heading">
+                    <span>Herkenning van je bon</span>
+                    <span id="expenseRecognitionState" class="recognition-state">Automatisch berekend</span>
+                  </div>
+                  <div class="calculation-grid">
+                    <div><span>Bedrag excl. btw</span><strong id="expenseNetValue">€ 0,00</strong></div>
+                    <div><span>Btw-percentage</span><strong id="expenseVatPercentValue">—</strong></div>
+                    <div><span>Btw op de bon</span><strong id="expenseVatValue">€ 0,00</strong></div>
+                    <div><span>Totaal incl. btw</span><strong id="expenseGrossValue">€ 0,00</strong></div>
+                  </div>
+                </div>
+                <div class="field-grid">
+                  <label class="field-label">Omschrijving
+                    <input id="expenseDescription" type="text" maxlength="100" placeholder="Bijv. kantoorbenodigdheden" />
+                  </label>
+                  <label class="field-label">Datum
+                    <input id="expenseDate" type="date" />
+                  </label>
+                  <label class="field-label">Totaal betaald
+                    <input id="expenseTotal" type="number" min="0" step="0.01" inputmode="decimal" />
+                  </label>
+                  <label class="field-label">Terug te vragen btw
+                    <input id="expenseVat" type="number" min="0" step="0.01" inputmode="decimal" />
+                  </label>
+                </div>
+                <p class="field-help">De bedragen hierboven zijn automatisch herkend. Pas ze aan als ze niet overeenkomen met de bon. Alleen btw op zakelijke uitgaven die voor aftrek in aanmerking komen, kun je terugvragen.</p>
+                <div class="expense-save-box">
+                  <div class="expense-refund">
+                    <span>Geschatte btw om terug te vragen</span>
+                    <strong id="expenseRefundValue">€ 0,00</strong>
+                  </div>
+                  <div id="expenseSaveState" class="save-success hidden">✓ Opgeslagen in overzicht</div>
+                  <button id="expenseSaveButton" type="button" class="primary-button">Opslaan bij btw terugvragen</button>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <section class="page-panel" id="page-overview" hidden>
+            <header class="page-header">
+              <div class="eyebrow">jouw administratie</div>
+              <div class="overview-page-heading">
+                <div>
+                  <h1>Jaaroverzicht</h1>
+                  <p>Bekijk wat je moet betalen, wat je kunt terugvragen en het verschil.</p>
+                </div>
+                <div id="yearButtons" class="year-buttons"></div>
+              </div>
+            </header>
+            <div class="balance-grid">
+              <div class="balance-card">
+                <span>Te betalen</span><strong id="payableTotal">€ 0,00</strong>
+                <small>btw over inkomsten + inkomstenbelasting</small>
+              </div>
+              <div class="balance-card">
+                <span>Terug te vragen</span><strong id="refundableTotal">€ 0,00</strong>
+                <small>btw over zakelijke uitgaven</small>
+              </div>
+              <div id="balanceResultCard" class="balance-card balance-result">
+                <span id="balanceResultLabel">Saldo</span><strong id="balanceResultValue">€ 0,00</strong>
+                <small id="balanceResultHint">Na verrekening van de btw</small>
+              </div>
+            </div>
+            <div id="emptyOverview" class="empty-overview hidden">Nog geen inkomsten of uitgaven in <span id="emptyYearLabel">2026</span>. Voeg een factuur of bon toe.</div>
+            <div id="overviewTables" class="overview-tables">
+              <section class="table-section">
+                <div class="table-heading"><div><span class="overview-icon">↗</span><h2>Te betalen</h2></div><span class="table-description">Facturen die je hebt verstuurd</span></div>
+                <div class="table-scroll">
+                  <table>
+                    <thead><tr><th>Omschrijving</th><th>Datum</th><th>Btw</th><th>Inkomstenbelasting</th><th>Totaal</th><th></th></tr></thead>
+                    <tbody id="payableRows"></tbody>
+                  </table>
+                  <div id="emptyPayable" class="table-empty hidden">Nog geen inkomsten in dit jaar.</div>
+                </div>
+              </section>
+              <section class="table-section">
+                <div class="table-heading"><div><span class="overview-icon">↙</span><h2>Terug te vragen</h2></div><span class="table-description">Btw op zakelijke uitgaven</span></div>
+                <div class="table-scroll">
+                  <table>
+                    <thead><tr><th>Omschrijving</th><th>Datum</th><th>Totaal betaald</th><th>Btw terug te vragen</th><th></th></tr></thead>
+                    <tbody id="refundableRows"></tbody>
+                  </table>
+                  <div id="emptyRefundable" class="table-empty hidden">Nog geen bonnen in dit jaar.</div>
+                </div>
+              </section>
+            </div>
+            <div class="footnote"><span>📄</span> Bedragen zijn indicaties op basis van je invoer en geen belastingadvies. Controleer ze altijd met je boekhouding.</div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+    <script src="js/finance.js"></script>
+    <script src="js/ledger-storage.js"></script>
+    <script src="js/receipt-scanner.js"></script>
+    <script src="js/invoice-page.js"></script>
+    <script src="js/expense-page.js"></script>
+    <script src="js/overview-page.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
