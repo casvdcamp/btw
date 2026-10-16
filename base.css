@@ -1,0 +1,64 @@
+:root {
+  --bg: #efede3;
+  --panel: #fbfaf5;
+  --panel-strong: #f3e7d8;
+  --panel-alt: #e6ebe4;
+  --line: #c9c3b0;
+  --text: #1f2a24;
+  --muted: #4b4636;
+  --soft: #8a8368;
+  --accent: #c17817;
+  --dark: #1f2a24;
+  --olive: #3f6355;
+  --brown: #7a4a12;
+  --shadow: rgba(31, 42, 36, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.eyebrow {
+  color: #6b6552;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 3vw, 2.9rem);
+  line-height: 1.15;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+}
+
+.page-header p {
+  margin: 12px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.hidden {
+  display: none !important;
+}
+

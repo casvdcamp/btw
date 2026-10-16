@@ -1,0 +1,138 @@
+.file-icon {
+  display: grid;
+  flex: 0 0 64px;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel-strong);
+  color: var(--brown);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.expense-editor {
+  padding: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.expense-calculation {
+  margin-bottom: 22px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #f3f0e7;
+}
+
+.calculation-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.recognition-state {
+  color: var(--olive);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.calculation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.calculation-grid > div {
+  display: grid;
+  gap: 7px;
+}
+
+.calculation-grid span {
+  color: var(--soft);
+  font-size: 11px;
+}
+
+.calculation-grid strong {
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+}
+
+.calculation-grid > div:nth-child(3) strong,
+.expense-refund strong {
+  color: var(--olive);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field-label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.field-label input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 11px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fffefa;
+  color: var(--text);
+}
+
+.field-label input:focus {
+  outline: 2px solid rgba(193, 120, 23, 0.28);
+  border-color: var(--accent);
+}
+
+.field-help {
+  margin: 14px 0 0;
+  color: var(--soft);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.expense-save-box {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.expense-refund {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.expense-refund strong {
+  color: var(--olive);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+}
+
+.expense-save-box .primary-button {
+  width: auto;
+}
+
+.expense-save-box .save-success {
+  grid-column: 1 / -1;
+}

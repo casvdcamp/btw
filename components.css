@@ -1,0 +1,139 @@
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  box-shadow: 0 1px 0 var(--shadow);
+}
+
+.upload-area {
+  padding: 56px 20px;
+}
+
+.upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  cursor: pointer;
+  text-align: center;
+  color: var(--muted);
+  min-height: 170px;
+}
+
+.upload-icon {
+  font-size: 32px;
+  color: #6b6552;
+}
+
+.upload-text {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.upload-preview {
+  border-bottom: 1px solid var(--line);
+}
+
+.preview-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 20px 16px;
+}
+
+.preview-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.preview-title {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview-subtext {
+  color: var(--soft);
+  font-size: 12px;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.icon-button {
+  border: none;
+  background: transparent;
+  color: #6b6552;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.icon-button:hover {
+  opacity: 0.7;
+}
+
+.status-notice,
+.error-box {
+  margin: 0 20px 20px;
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+.status-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b6552;
+  background: transparent;
+}
+
+.spinner {
+  display: inline-block;
+  font-size: 16px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.error-box {
+  background: #f3e7d8;
+  color: var(--brown);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.primary-button {
+  background: var(--dark);
+  color: var(--panel);
+}
+
+.empty-overview {
+  font-size: 14px;
+  color: var(--soft);
+  border: 1px dashed var(--line);
+  background: var(--panel);
+  border-radius: 4px;
+  padding: 24px 18px;
+  text-align: center;
+}
+
+.delete-button {
+  border: none;
+  background: transparent;
+  color: var(--soft);
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  cursor: pointer;
+}

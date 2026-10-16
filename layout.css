@@ -1,0 +1,113 @@
+.app-shell {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0;
+  background: var(--bg);
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex: 0 0 238px;
+  flex-direction: column;
+  height: 100vh;
+  padding: 30px 18px 20px;
+  background: var(--dark);
+  color: var(--panel);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 42px 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.sidebar-brand small {
+  color: #c9c3b0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+}
+
+.sidebar-nav {
+  display: grid;
+  gap: 8px;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #d8d5c9;
+  text-align: left;
+  cursor: pointer;
+}
+
+.nav-button span {
+  width: 20px;
+  color: #c9c3b0;
+  font-size: 17px;
+  text-align: center;
+}
+
+.nav-button:hover,
+.nav-button.active {
+  border-color: rgba(251, 250, 245, 0.12);
+  background: rgba(251, 250, 245, 0.1);
+  color: var(--panel);
+}
+
+.nav-button.active span {
+  color: #e4ab5c;
+}
+
+.sidebar-note {
+  margin: auto 8px 0;
+  color: #c9c3b0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+  padding: 42px 30px;
+}
+
+.page-panel:not(.active) {
+  display: none;
+}
+
+.page-header {
+  margin-bottom: 28px;
+}

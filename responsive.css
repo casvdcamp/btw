@@ -1,0 +1,91 @@
+@media (max-width: 480px) {
+  .split-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .split-box-left {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    display: block;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 12px 14px;
+  }
+
+  .sidebar-brand {
+    margin: 0 0 12px 4px;
+  }
+
+  .sidebar-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .nav-button {
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 5px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .sidebar-note {
+    display: none;
+  }
+
+  .app-main {
+    padding: 28px 16px;
+  }
+
+  .balance-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .overview-page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .overview-page-heading .year-buttons {
+    justify-content: flex-start;
+  }
+
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calculation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ib-options {
+    grid-template-columns: 1fr;
+  }
+
+  .ib-option {
+    grid-template-columns: 54px 1fr;
+    align-items: center;
+    min-height: 0;
+  }
+
+  .expense-save-box {
+    grid-template-columns: 1fr;
+  }
+
+  .expense-save-box .primary-button {
+    width: 100%;
+  }
+}
